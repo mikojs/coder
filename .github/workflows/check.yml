@@ -1,0 +1,7 @@
+name: Check Rust
+
+on: [push]
+
+jobs:
+  check:
+    uses: mikojs/actions/.github/workflows/check-rust.yml@main
