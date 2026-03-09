@@ -26,19 +26,36 @@ enum MainError {
 
 #[derive(Subcommand)]
 enum Commands {
-    /// Sync code with git bundle file
+    /// Sync local repository with a git bundle file
+    #[command(
+        long_about = "Update local branches to match the bundle. Removes branches not in bundle, adds new branches, and updates existing ones."
+    )]
     Sync(Sync),
-    /// Push code to remote server with git bundle file
+
+    /// Push local repository to a remote server
+    #[command(
+        long_about = "Create a git bundle from all local branches, transfer it to the remote server via SCP, and run sync on the remote."
+    )]
     Push(Push),
-    /// Pull code from remote server with git bundle file
+
+    /// Pull repository from a remote server
+    #[command(
+        long_about = "Create a git bundle on the remote server, transfer it locally via SCP, and sync local branches."
+    )]
     Pull(Pull),
 }
 
 #[derive(Parser)]
+#[command(
+    version,
+    about = "Sync git repositories via bundles over SSH",
+    long_about = "A CLI tool for syncing git repositories between local and remote servers using git bundles.\nUseful for air-gapped environments or restricted networks without direct git remote access."
+)]
 struct Cli {
-    /// Generate shell completion
+    /// Generate shell completion script
     #[arg(long, value_enum)]
     generate: Option<Shell>,
+
     #[command(subcommand)]
     commands: Option<Commands>,
 }
