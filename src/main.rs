@@ -45,12 +45,10 @@ enum Commands {
     Pull(Pull),
 }
 
+/// A CLI tool for syncing git repositories between local and remote servers using git bundles.
+/// Useful for air-gapped environments or restricted networks without direct git remote access.
 #[derive(Parser)]
-#[command(
-    version,
-    about = "Sync git repositories via bundles over SSH",
-    long_about = "A CLI tool for syncing git repositories between local and remote servers using git bundles.\nUseful for air-gapped environments or restricted networks without direct git remote access."
-)]
+#[command(version, verbatim_doc_comment)]
 struct Cli {
     /// Generate shell completion script
     #[arg(long, value_enum)]
