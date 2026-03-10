@@ -18,16 +18,16 @@ cargo install --path .
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-    coder.url = "github:mikojs/coder";
+    miko-coder.url = "github:mikojs/coder";
   };
 
-  outputs = { nixpkgs, coder, ... }: {
+  outputs = { nixpkgs, miko-coder, ... }: {
     nixosConfigurations.myhost = nixpkgs.lib.nixosSystem {
       ...
       modules = [
         ({ pkgs, ... }: {
-          nixpkgs.overlays = [ coder.overlays.default ];
-          environment.systemPackages = [ pkgs.coder ];
+          nixpkgs.overlays = [ miko-coder.overlays.default ];
+          environment.systemPackages = [ pkgs.miko-coder ];
         })
       ];
     };
