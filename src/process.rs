@@ -68,10 +68,10 @@ mod tests {
         let result = exec("nonexistent_command_12345", vec![]);
 
         assert!(result.is_err());
-
-        if let Err(ProcessError::CommandNotFound(cmd)) = result {
-            assert_eq!(cmd, "nonexistent_command_12345");
-        }
+        assert!(matches!(
+            result.unwrap_err(),
+            ProcessError::CommandNotFound(..)
+        ));
     }
 
     #[test]
@@ -79,9 +79,9 @@ mod tests {
         let result = exec_result("nonexistent_command_12345", vec![]);
 
         assert!(result.is_err());
-
-        if let Err(ProcessError::CommandNotFound(cmd)) = result {
-            assert_eq!(cmd, "nonexistent_command_12345");
-        }
+        assert!(matches!(
+            result.unwrap_err(),
+            ProcessError::CommandNotFound(..)
+        ));
     }
 }
