@@ -14,25 +14,30 @@
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
 
       perSystem =
         { pkgs, self', ... }:
         {
           packages = {
-            coder = pkgs.rustPlatform.buildRustPackage {
+            miko-coder = pkgs.rustPlatform.buildRustPackage {
               pname = "coder";
               version = "0.1.0";
               src = ./.;
               cargoLock.lockFile = ./Cargo.lock;
             };
 
-            default = self'.packages.coder;
+            default = self'.packages.miko-coder;
           };
         };
 
       flake.overlays.default = final: prev: {
-        coder = self.packages.${final.system}.coder;
+        miko-coder = self.packages.${final.system}.miko-coder;
       };
     };
 }
