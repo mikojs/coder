@@ -6,8 +6,33 @@ This tool is useful when you need to sync code with a remote server that doesn't
 
 ## Installation
 
+### Cargo
+
 ```bash
 cargo install --path .
+```
+
+### Nix
+
+```nix
+{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    coder.url = "github:mikojs/coder";
+  };
+
+  outputs = { nixpkgs, coder, ... }: {
+    nixosConfigurations.myhost = nixpkgs.lib.nixosSystem {
+      ...
+      modules = [
+        ({ pkgs, ... }: {
+          nixpkgs.overlays = [ coder.overlays.default ];
+          environment.systemPackages = [ pkgs.coder ];
+        })
+      ];
+    };
+  };
+}
 ```
 
 ## Usage
