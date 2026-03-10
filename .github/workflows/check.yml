@@ -3,5 +3,7 @@ name: Check Rust
 on: [push]
 
 jobs:
-  check:
+  check-rust:
     uses: mikojs/actions/.github/workflows/check-rust.yml@main
+  check-nix:
+    uses: mikojs/actions/.github/workflows/check-nix.yml@main
