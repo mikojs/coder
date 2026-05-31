@@ -37,7 +37,7 @@
         };
 
       flake.overlays.default = final: prev: {
-        miko-coder = self.packages.${final.system}.miko-coder;
+        miko-coder = self.packages.${final.stdenv.hostPlatform.system}.miko-coder;
       };
     };
 }
